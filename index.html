@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คำนวณยา Norepinephrine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #007bff;
+            font-size: 1.5em;
+        }
+        label {
+            font-size: 1em;
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+            h2 {
+                font-size: 1.3em;
+            }
+            button {
+                font-size: 1em;
+                padding: 10px;
+            }
+        }
+    </style>
+    <script>
+        function calculateDosage() {
+            let norepinephrine = parseFloat(document.getElementById("norepinephrine").value) || 0;
+            let ccPerHour = parseFloat(document.getElementById("ccPerHour").value) || 0;
+            let weight = parseFloat(document.getElementById("weight").value) || 0;
+            let solution = parseFloat(document.getElementById("solution").value) || 0;
+            
+            if (norepinephrine <= 0 || ccPerHour <= 0 || weight <= 0 || solution <= 0) {
+                alert("กรุณากรอกค่าที่ถูกต้องทั้งหมด");
+                return;
+            }
+
+            let result = ((norepinephrine * 1000 * ccPerHour) / (solution * weight * 60)).toFixed(2);
+            document.getElementById("result").innerText = result + " ug/kg/min";
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>การคำนวณขนาดของยา Norepinephrine</h2>
+        <label for="norepinephrine">ขนาดยา (mg):</label>
+        <input type="number" id="norepinephrine" placeholder="ใส่ขนาดยา" step="0.01">
+
+        <label for="ccPerHour">ปริมาณที่แพทย์สั่ง (CC/hr):</label>
+        <input type="number" id="ccPerHour" placeholder="ใส่ปริมาณยา" step="0.01">
+        
+        <label for="weight">น้ำหนักผู้ป่วย (kg):</label>
+        <input type="number" id="weight" placeholder="ใส่น้ำหนักผู้ป่วย" step="0.1">
+        
+        <label for="solution">สารละลาย (CC):</label>
+        <input type="number" id="solution" placeholder="ใส่สารละลาย" step="1">
+        
+        <button onclick="calculateDosage()">คำนวณ</button>
+
+        <div class="result" id="result">—</div>
+    </div>
+</body>
+</html>
